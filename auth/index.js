@@ -22,15 +22,21 @@ const check = {
             //throw new Error('No puedes hacer esto');
         }
     },
+    logged: function(req) {
+        const decoded = decodeHeader(req);
+        console.log(decoded);
+    },
 }
 
 function getToken(auth) {
     if (!auth) {
-        throw new Error('No viene token');
+        throw error('No viene token', 401);
+        //throw new Error('No viene token');
     }
 
     if (auth.indexOf('Bearer ') === -1) {
-        throw new Error('Formato invalido');
+        throw error('Formato invalido', 401);
+        //throw new Error('Formato invalido');
     }
 
     let token = auth.replace('Bearer ', '');
